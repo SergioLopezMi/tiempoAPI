@@ -28,6 +28,10 @@ public class WeatherController {
     public ResponseEntity findByDate(@RequestBody Map<String, String> dateString) {
         if (dateString.containsKey("date")) {
             LocalDate dateFind = LocalDate.parse(dateString.get("date"));
+            if(dateString.size() == 2){
+                LocalDate dateFind2 = LocalDate.parse(dateString.get("date2"));
+                return ResponseEntity.ok().body(weatherRepository.findByDateRange(dateFind, dateFind2));
+            }
             return ResponseEntity.ok().body(weatherRepository.findByDate(dateFind));
         }
         return ResponseEntity.badRequest().body("Fecha no informada");

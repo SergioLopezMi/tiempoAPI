@@ -9,6 +9,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface WeatherRepository extends JpaRepository<Weather, Integer> {
-    @Query("select w from Weather w where w.date = :date")
+
+    @Query("SELECT W FROM Weather W WHERE W.date = :date")
     List<Weather> findByDate(@Param("date") LocalDate date);
+
+    @Query("SELECT W FROM Weather W WHERE W.date >= :date AND W.date <= :date2")
+    List<Weather> findByDateRange(@Param("date") LocalDate date, @Param("date2") LocalDate date2);
 }
