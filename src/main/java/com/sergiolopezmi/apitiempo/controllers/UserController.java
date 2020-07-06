@@ -1,6 +1,7 @@
 package com.sergiolopezmi.apitiempo.controllers;
 
 import com.sergiolopezmi.apitiempo.entities.User;
+import com.sergiolopezmi.apitiempo.pojos.UserPojo;
 import com.sergiolopezmi.apitiempo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity addUser(@RequestBody User userIn) {
+    public ResponseEntity<UserPojo> addUser(@RequestBody UserPojo userIn) {
         return ResponseEntity.ok()
             .body(userRepository.save(userIn));
     }
