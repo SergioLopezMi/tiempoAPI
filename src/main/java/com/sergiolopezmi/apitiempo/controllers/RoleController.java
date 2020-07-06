@@ -1,6 +1,7 @@
 package com.sergiolopezmi.apitiempo.controllers;
 
 import com.sergiolopezmi.apitiempo.entities.Role;
+import com.sergiolopezmi.apitiempo.pojos.RolePojo;
 import com.sergiolopezmi.apitiempo.repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity saveNewRole(@RequestBody Role roleIn) {
+    public ResponseEntity saveNewRole(@RequestBody RolePojo roleIn) {
         if(roleIn.getRoleName() != null){
             roleIn.setRoleName(roleIn.getRoleName().toUpperCase());
             return ResponseEntity.ok()
