@@ -1,5 +1,6 @@
 package com.sergiolopezmi.apitiempo.controllers;
 
+import com.sergiolopezmi.apitiempo.constants.WeatherConstants;
 import com.sergiolopezmi.apitiempo.entities.Weather;
 import com.sergiolopezmi.apitiempo.repositories.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,14 @@ public class WeatherController {
             LocalDate dateFind = LocalDate.parse(dateString.get("date"));
             if(dateString.size() == 2){
                 LocalDate dateFind2 = LocalDate.parse(dateString.get("date2"));
-                return ResponseEntity.ok().body(weatherRepository.findByDateRange(dateFind, dateFind2));
+                return ResponseEntity.ok()
+                        .body(weatherRepository.findByDateRange(dateFind, dateFind2));
             }
-            return ResponseEntity.ok().body(weatherRepository.findByDate(dateFind));
+            return ResponseEntity.ok().
+                    body(weatherRepository.findByDate(dateFind));
         }
-        return ResponseEntity.badRequest().body("Fecha no informada");
+        return ResponseEntity.badRequest()
+                .body(WeatherConstants.ERROR_FECHA);
     }
 
     @PostMapping
@@ -48,11 +52,12 @@ public class WeatherController {
             newWeather.setDate(LocalDate.now());
             newWeather.setHour(LocalTime.now());
 
-            return ResponseEntity.status(HttpStatus.OK).body(weatherRepository.save(newWeather));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(weatherRepository.save(newWeather));
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Humedad o temperatura no están informados correctamente");
+                .body(WeatherConstants.ERROR_HUMEDAD_TEMPERATURA);
 
     }
 }
